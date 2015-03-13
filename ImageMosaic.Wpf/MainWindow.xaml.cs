@@ -17,57 +17,51 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ImageMosaic;
+using ImageMosaic.Logic;
 
 namespace WpfApplication1
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-
     /// <summary> 
     /// Interaction logic for MainWindow.xaml 
     /// </summary> 
     public partial class MainWindow : Window
     {
+        private GettyImagesProvider _imagesProvider;
+
+
         public MainWindow()
         {
+            _imagesProvider = new GettyImagesProvider("22ywrytgjcfg9spzr2qd7g69");
+
             InitializeComponent();
+            SynchonizePictures();
+        }
 
-            // For this example, values are hard-coded to a mosaic of 8x8 tiles. 
-
+        private async void SynchonizePictures()
+        {
+            // TODO Disable renderer button till sync job end
+            await Task.Run(() => _imagesProvider.SynchronizeAsync());
             button1.Click += button1_Click;
-
         }
 
         private async void button1_Click( object sender, RoutedEventArgs e )
         {
             MosaicGenerator generator = new MosaicGenerator();
+            TaskScheduler ctx = TaskScheduler.FromCurrentSynchronizationContext();
 
             int take = SourceImagesCount();
+            string imageToMash = _imagesProvider.RndLocalPicturePick().FullName;
+            string srcImageDirectory = _imagesProvider.DownloadDir.FullName;
 
-            string imageToMash = @"C:\Users\Clem\Pictures\Async\" + "images.JPG";
-            string srcImageDirectory = @"C:\Users\Clem\Pictures\master rabbit";
-
-            var ctx = TaskScheduler.FromCurrentSynchronizationContext();
             generator.TileEvent += (origin, tileEventArgs) => Task.Factory.StartNew(() => SetImageSource(tileEventArgs.TileToRender), System.Threading.CancellationToken.None, TaskCreationOptions.None, ctx);
-
             await Task.Run(() => generator.Generate(imageToMash, srcImageDirectory, take));
-
-
-            //SetImageSource( result.Image );
-
-
-        }
-
-        private void drawTile(MosaicTile tile) {
-
         }
 
         private int SourceImagesCount()
         {
             int take = 100000;
             string content = ((ComboBoxItem)combo1.SelectedItem).Content.ToString();
-            if( content != "All" ) take = Int32.Parse( ((ComboBoxItem)combo1.SelectedItem).Content.ToString() );
+            if( content != null || content != "All" ) take = Int32.Parse( ((ComboBoxItem)combo1.SelectedItem).Content.ToString() );
             return take;
         }
 
@@ -86,11 +80,8 @@ namespace WpfApplication1
             image1.Source = bi;
         }
 
-        private void ComboBox_SelectionChanged( object sender, SelectionChangedEventArgs e )
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
-
-
     }
 }

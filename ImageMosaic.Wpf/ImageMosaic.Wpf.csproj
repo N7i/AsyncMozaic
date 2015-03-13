@@ -98,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageMosaic.Logic\ImageMosaic.Logic.csproj">
+      <Project>{5611f211-6e46-462e-be7b-32427d36b41c}</Project>
+      <Name>ImageMosaic.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageMosaic\ImageMosaic.csproj">
       <Project>{7617a892-4183-44ed-8c38-204df39723fd}</Project>
       <Name>ImageMosaic</Name>
