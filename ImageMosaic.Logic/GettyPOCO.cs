@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace ImageMosaic.Logic
 {
+    /// <summary>
+    /// Set of POCO who match the json returned by the Getty API.
+    /// </summary>
+    
     class SimpleGettyImageThumb
     {
         public string uri { get; set; }
