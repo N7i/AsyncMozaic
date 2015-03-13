@@ -59,9 +59,12 @@ namespace WpfApplication1
 
         private int SourceImagesCount()
         {
-            int take = 100000;
-            string content = ((ComboBoxItem)combo1.SelectedItem).Content.ToString();
-            if( content != null || content != "All" ) take = Int32.Parse( ((ComboBoxItem)combo1.SelectedItem).Content.ToString() );
+            int take = Int32.MaxValue;
+            if (null != ((ComboBoxItem)combo1.SelectedItem))
+            {
+                string content = ((ComboBoxItem)combo1.SelectedItem).Content.ToString();
+                if (content != "All") take = Int32.Parse(((ComboBoxItem)combo1.SelectedItem).Content.ToString());
+            }
             return take;
         }
 
