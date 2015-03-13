@@ -59,10 +59,15 @@ namespace ImageMosaic.Logic
                 try
                 {
                     HttpResponseMessage response = await client.GetAsync(SEARCH_IRI);
-                    String content = await response.Content.ReadAsStringAsync();
-                    GettyResult result = await JsonConvert.DeserializeObjectAsync<GettyResult>(content);
 
-                    await Task.Run(() => DownloadMissingImages(result.images));
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String content = await response.Content.ReadAsStringAsync();
+                        GettyResult result = await JsonConvert.DeserializeObjectAsync<GettyResult>(content);
+
+                        await Task.Run(() => DownloadMissingImages(result.images));
+                    }
+                    // Do not care of request failure, it's in the specs :D
                 }
                 catch (Exception e)
                 {
@@ -107,7 +112,6 @@ namespace ImageMosaic.Logic
                     {
                         Stream stream = await response.Content.ReadAsStreamAsync();
                         await stream.CopyToAsync(fileStream);
-                        
                     }
                     // Do not care of request failure, it's in the specs :D
                 }

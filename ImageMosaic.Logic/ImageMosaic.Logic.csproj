@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="GettyImagesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleGettyImage.cs" />
+    <Compile Include="GettyPOCO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
