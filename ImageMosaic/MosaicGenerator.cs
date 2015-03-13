@@ -8,18 +8,9 @@ using System.Drawing;
 
 namespace ImageMosaic
 {
-    public class TileEventArgs
-    {
-        public TileEventArgs(Bitmap m) { TileToRender = m; }
-        public Bitmap TileToRender { get; private set; } // readonly
-    }
-
     public class MosaicGenerator
     {
-        public delegate void TileEventHandler(object sender, TileEventArgs e);
-        public event TileEventHandler TileEvent;
-      
-        public async void Generate( string imageToMash, string srcImageDirectory, int sourceImages )
+        public async void Generate(Mosaic mosaic, string imageToMash, string srcImageDirectory, int sourceImages )
         {
 
             
@@ -29,8 +20,6 @@ namespace ImageMosaic
 
             var di = new DirectoryInfo( srcImageDirectory );
             var files = di.GetFiles( "*.jpg", SearchOption.AllDirectories ).Take( sourceImages ).ToList();
-
-            _imageProcessing.MosaicEvent += (sender, eventArgs) => TileEvent(this, new TileEventArgs(eventArgs.Tile));
 
             foreach( var f in files )
             {
@@ -46,7 +35,7 @@ namespace ImageMosaic
             using( var source = new Bitmap( imageToMash ) )
             {
                 var _colorMap = _imageProcessing.CreateMap( source );
-                await Task.Run(() => _imageProcessing.Render(source, _colorMap, _imageInfos));
+                await Task.Run(() => _imageProcessing.Render(mosaic, source, _colorMap, _imageInfos));
             }
 
         }

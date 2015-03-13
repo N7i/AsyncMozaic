@@ -53,8 +53,14 @@ namespace WpfApplication1
             string imageToMash = _imagesProvider.RndLocalPicturePick().FullName;
             string srcImageDirectory = _imagesProvider.DownloadDir.FullName;
 
-            generator.TileEvent += (origin, tileEventArgs) => Task.Factory.StartNew(() => SetImageSource(tileEventArgs.TileToRender), System.Threading.CancellationToken.None, TaskCreationOptions.None, ctx);
-            await Task.Run(() => generator.Generate(imageToMash, srcImageDirectory, take));
+            Mosaic mosaic = new Mosaic();
+            mosaic.MosaicChangedEvent += (origin, eventArgs) => {
+                Task.Factory.StartNew(() => {
+                    SetImageSource(eventArgs.Img);
+                }, System.Threading.CancellationToken.None, TaskCreationOptions.None, ctx);
+            };
+
+            await Task.Run(() => generator.Generate(mosaic, imageToMash, srcImageDirectory, take));
         }
 
         private int SourceImagesCount()

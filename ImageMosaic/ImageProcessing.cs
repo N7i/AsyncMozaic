@@ -8,16 +8,9 @@ using System.Threading.Tasks;
 
 namespace ImageMosaic
 {
-    public class MosaicEventArgs
-    {
-        public MosaicEventArgs(Bitmap m) { Tile = m; }
-        public Bitmap Tile { get; private set; } // readonly
-    }
+  
     public class ImageProcessing
     {
-        public delegate void MosaicEventHandler(object sender, MosaicEventArgs e);
-        public event MosaicEventHandler MosaicEvent;
-
         private int quality = 6, resizeHeight = 119, resizeWidth = 119;
         private Size tileSize = new Size(10, 10);
         private List<ImageInfo> library;
@@ -121,7 +114,7 @@ namespace ImageMosaic
             return colorMap;
         }
 
-        public void Render(Bitmap img, Color[,] colorMap, List<ImageInfo> imageInfos)
+        public void Render(Mosaic mosaic, Bitmap img, Color[,] colorMap, List<ImageInfo> imageInfos)
         {
             this.library = imageInfos;
 
@@ -136,26 +129,28 @@ namespace ImageMosaic
             Rectangle destRect, srcRect;
             var imageSq = new List<MosaicTile>();
 
-            
-
             for (int x = 0; x < colorMap.GetLength(0); x++)
             {
-
-                
 
                 for (int y = 0; y < colorMap.GetLength(1); y++)
                 {
                     info = imageInfos[GetBestImageIndex(colorMap[x, y], x, y)];
                     using (Image source = Image.FromFile(info.Path))
                     {
-                        
+                        imageSq.Add(new MosaicTile()
+                        {
+                            X = x,
+                            Y = y,
+                            Image = info.Path
+                        });
 
                         destRect = new Rectangle(x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
                         srcRect = new Rectangle(0, 0, source.Width, source.Height);
 
                         g.DrawImage(source, destRect, srcRect, GraphicsUnit.Pixel);
-                        if (MosaicEvent != null)
-                            MosaicEvent(this, new MosaicEventArgs(newImg));
+
+                        mosaic.Tiles = imageSq;
+                        mosaic.Image = newImg;
                     }
                 }
             }
