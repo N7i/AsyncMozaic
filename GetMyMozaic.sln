@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMosaic", "ImageMosaic\ImageMosaic.csproj", "{7617A892-4183-44ED-8C38-204DF39723FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMosaic.Logic", "ImageMosaic.Logic\ImageMosaic.Logic.csproj", "{5611F211-6E46-462E-BE7B-32427D36B41C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMosaic.Wpf", "ImageMosaic.Wpf\ImageMosaic.Wpf.csproj", "{7EF1DC54-3F54-4C6D-A557-69F02107C7C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7617A892-4183-44ED-8C38-204DF39723FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7617A892-4183-44ED-8C38-204DF39723FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7617A892-4183-44ED-8C38-204DF39723FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7617A892-4183-44ED-8C38-204DF39723FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5611F211-6E46-462E-BE7B-32427D36B41C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5611F211-6E46-462E-BE7B-32427D36B41C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5611F211-6E46-462E-BE7B-32427D36B41C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5611F211-6E46-462E-BE7B-32427D36B41C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF1DC54-3F54-4C6D-A557-69F02107C7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF1DC54-3F54-4C6D-A557-69F02107C7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF1DC54-3F54-4C6D-A557-69F02107C7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF1DC54-3F54-4C6D-A557-69F02107C7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
